@@ -60,6 +60,12 @@ const verifyToken = async (token, type) => {
   return tokenDoc;
 };
 
+const verifyTokenAndReturnUser = async (token) => {
+  const payload = jwt.verify(token, config.jwt.secret);
+
+  return payload.sub;
+};
+
 /**
  * Generate auth tokens
  * @param {User} user
@@ -117,6 +123,7 @@ module.exports = {
   generateToken,
   saveToken,
   verifyToken,
+  verifyTokenAndReturnUser,
   generateAuthTokens,
   generateResetPasswordToken,
   generateVerifyEmailToken,

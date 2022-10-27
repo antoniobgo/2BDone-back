@@ -6,7 +6,8 @@ const boardController = require('../../controllers/board.controller');
 
 const router = express.Router();
 
-router.route('/:userId/my-boards').post(boardController.createBoard);
+// router.route('/:userId/my-boards').post(boardController.createBoard);
+router.route('/').get(boardController.getBoards).post(boardController.createBoard);
 // .post(auth('manageUsers'), validate(userValidation.createUser), userController.createUser)
 // .get(auth('getUsers'), validate(userValidation.getUsers), userController.getUsers);
 

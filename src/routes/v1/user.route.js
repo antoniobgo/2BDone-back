@@ -9,7 +9,7 @@ const router = express.Router();
 router.route('/').post(userController.createUser);
 // .post(auth('manageUsers'), validate(userValidation.createUser), userController.createUser)
 // .get(auth('getUsers'), validate(userValidation.getUsers), userController.getUsers);
-router.route('/:userId/boards').get(userController.getUserBoards).post(userController.createBoardToUser);
+// router.route('/:userId/boards').get(userController.getUserBoards).post(userController.createBoardToUser);
 
 router
   .route('/:userId')

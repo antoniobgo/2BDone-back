@@ -1,12 +1,22 @@
-const httpStatus = require('http-status');
+// const httpStatus = require('http-status');
 // const pick = require('../utils/pick');
 // const ApiError = require('../utils/ApiError');
 const catchAsync = require('../utils/catchAsync');
 const { boardService } = require('../services');
 
+// const createBoard = catchAsync(async (req, res) => {
+// const board = await boardService.createBoard(req.body);
+// res.status(httpStatus.CREATED).send(board);
+// });
+
 const createBoard = catchAsync(async (req, res) => {
-  const board = await boardService.createBoard(req.body);
-  res.status(httpStatus.CREATED).send(board);
+  const board = await boardService.createBoard(req.body.board);
+  res.send(board);
+});
+
+const getBoards = catchAsync(async (req, res) => {
+  const boards = await boardService.getBoards(req.query.userId);
+  res.send(boards);
 });
 
 // const getUsers = catchAsync(async (req, res) => {
@@ -36,6 +46,7 @@ const createBoard = catchAsync(async (req, res) => {
 
 module.exports = {
   createBoard,
+  getBoards,
   //   getUsers,
   //   getUser,
   //   updateUser,
