@@ -10,7 +10,7 @@ const { boardService } = require('../services');
 // });
 
 const createBoard = catchAsync(async (req, res) => {
-  const board = await boardService.createBoard(req.body.board);
+  const board = await boardService.createBoard(req.body);
   res.send(board);
 });
 

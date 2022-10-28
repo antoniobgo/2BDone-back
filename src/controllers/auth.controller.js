@@ -17,8 +17,7 @@ const login = catchAsync(async (req, res) => {
 
 const loginWithToken = catchAsync(async (req, res) => {
   const { accessToken, refreshToken } = req.body;
-  // let user = await authService.loginUserWithAccessToken(accessToken);
-  let user;
+  let user = await authService.loginUserWithAccessToken(accessToken);
   let tokens;
   if (!user) {
     tokens = await authService.refreshAuth(refreshToken);
