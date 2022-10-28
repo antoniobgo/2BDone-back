@@ -60,10 +60,13 @@ const verifyToken = async (token, type) => {
   return tokenDoc;
 };
 
-const verifyTokenAndReturnUser = async (token) => {
-  const payload = jwt.verify(token, config.jwt.secret);
-
-  return payload.sub;
+const verifyTokenAndReturnUserId = async (accessToken) => {
+  try {
+    const payload = jwt.verify(accessToken, config.jwt.secret);
+    return payload.sub;
+  } catch (err) {
+    return null;
+  }
 };
 
 /**
@@ -123,7 +126,7 @@ module.exports = {
   generateToken,
   saveToken,
   verifyToken,
-  verifyTokenAndReturnUser,
+  verifyTokenAndReturnUserId,
   generateAuthTokens,
   generateResetPasswordToken,
   generateVerifyEmailToken,

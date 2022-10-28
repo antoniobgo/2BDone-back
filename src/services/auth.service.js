@@ -19,13 +19,16 @@ const loginUserWithEmailAndPassword = async (email, password) => {
   return user;
 };
 
-const loginUserWithToken = async (accessToken) => {
-  const userId = await tokenService.verifyTokenAndReturnUser(accessToken);
-  const user = await userService.getUserById(userId);
-  if (!user) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Access token invalid or expired.');
+const loginUserWithAccessToken = async (accessToken) => {
+  const userId = await tokenService.verifyTokenAndReturnUserId(accessToken);
+  if (userId) {
+    const user = await userService.getUserById(userId);
+    if (!user) {
+      throw new ApiError(httpStatus.UNAUTHORIZED, 'Access token invalid');
+    }
+    return user;
   }
-  return user;
+  return null;
 };
 
 /**
@@ -101,7 +104,7 @@ const verifyEmail = async (verifyEmailToken) => {
 
 module.exports = {
   loginUserWithEmailAndPassword,
-  loginUserWithToken,
+  loginUserWithAccessToken,
   logout,
   refreshAuth,
   resetPassword,

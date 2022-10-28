@@ -16,9 +16,16 @@ const login = catchAsync(async (req, res) => {
 });
 
 const loginWithToken = catchAsync(async (req, res) => {
-  const { accessToken } = req.body;
-  const user = await authService.loginUserWithToken(accessToken);
-  const tokens = await tokenService.generateAuthTokens(user);
+  const { accessToken, refreshToken } = req.body;
+  // let user = await authService.loginUserWithAccessToken(accessToken);
+  let user;
+  let tokens;
+  if (!user) {
+    tokens = await authService.refreshAuth(refreshToken);
+    user = await authService.loginUserWithAccessToken(tokens.access.token);
+  } else {
+    tokens = await authService.refreshAuth(refreshToken);
+  }
   res.send({ user, tokens });
 });
 
