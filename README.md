@@ -10,7 +10,7 @@
 
 ### Tecnologias utilizadas:
 ```
-API em Node.js
+Servidor backend em Node.js
 
 ```
 
